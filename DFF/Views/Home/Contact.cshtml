@@ -1,0 +1,70 @@
+﻿@model DFF.Models.EmailFormModel
+@{
+    ViewBag.Title = "Contact";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Content/Style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+ <div id="instructions" class="paper" style="padding-bottom:200px;">
+
+        <h2>@ViewBag.Title Us</h2>
+        <h3>@ViewBag.Message</h3>
+
+        <address>
+            Detroit Food Finder<br />
+            Suite 420
+            Detroit, MI.  48226<br />
+            <abbr title="Phone">P:</abbr>
+            313.338.5555
+        </address>
+        <address>
+            Office Hours: 9:00am - 6:00pm EST <br />
+        </address>
+
+        <address>
+            <strong>Support:</strong>   <a href="mailto:DFFSupport@DFFinder.com">DFFSupport@DFFinder.com</a><br />
+            <strong>Marketing:</strong> <a href="mailto:DFFMarketing@DFFinder.com">DFFMarketing@DFFinder.com</a>
+        </address>
+     
+     <br />
+        @using (Html.BeginForm())
+                {
+                @Html.AntiForgeryToken()
+                    <h4> Send your Comments:</h4>
+         <div class="form-group">
+         @Html.LabelFor(m => m.FromName, new { @class = "col-md-2 control-label" })
+        </div>
+         <div class="col-md-10">
+             @Html.TextBoxFor(m => m.FromName, new { @class = "form-control" })
+             @Html.ValidationMessageFor(m => m.FromName)
+         </div>
+     
+     <div class="form-group">
+         @Html.LabelFor(m => m.FromEmail, new { @class = "col-md-2 control-label" })
+         <div class="col-md-10">
+             @Html.TextBoxFor(m => m.FromEmail, new { @class = "form-control" })
+             @Html.ValidationMessageFor(m => m.FromEmail)
+         </div>
+     </div>
+     <div class="form-group">
+         @Html.LabelFor(m => m.Message, new { @class = "col-md-2 control-label" })
+         <div class="col-md-10">
+             @Html.TextAreaFor(m => m.Message, new { @class = "form-control" })
+             @Html.ValidationMessageFor(m => m.Message)
+         </div>
+     </div>
+     <div class="form-group">
+         <div class="col-md-offset-2 col-md-10" style="padding-top:10px">
+             <input type = "submit" class="btn-linkedin" value="Send" />
+         </div>
+     </div>
+ }
+</div>
+</body>
+</html>

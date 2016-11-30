@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@using DFF.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '190195124751820',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+<div class="jumbotron" style="background: url(https://static.pexels.com/photos/5876/food-salad-healthy-vegetables.jpg); background-size: cover" ;>
+
+    @*<h2>@ViewBag.Title.</h2>*@
+
+    <div class="row" style="text-align:center; margin-top:-12px">
+        <div class="col-md-9" style="background-color:rgba(235,235,235,0.9); padding-top:25px; position:center;">
+            <img src="https://lh3.googleusercontent.com/-YwF_fZkUjjg/WAUU3leTeAI/AAAAAAAAAfc/doPXci_WnT4sxydnVo5ujniKaal9P8aMgCL0B/w795-d-h398-p-rw/logo2.png" alt="DFF Logo" style="width:280px;height:140px;">
+            <h3 style="font-style:italic; font-weight:bold; position:center;"> "Food doesn’t have to  go to the trash bin." </h3>
+            <section id="loginForm">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                    @Html.AntiForgeryToken()
+                    @*<h4>Use a local account to log in.</h4>*@
+                    <hr />
+                        <p><a href="Donations" style="color:#1360a2">View Donations</a> | <a href="Donations/Create" style="color:#1360a2">Post A Donation</a></p>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label col-md-offset-3" , style="text-align:left;"})
+
+                            <div class="col-md-11 col-md-offset-3 column">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label col-md-offset-3" })
+                            <div class="col-md-11 col-md-offset-3 column">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-10  col-md-offset-1" style="text-align:center">
+                                <input type="submit" value="Sign in" class="btn-linkedin"><br />
+                                <p style="margin-top:5px">Not a member? <a href="/Account/Register" style="color:#1360a2">Join Now!</a></p>
+                            </div>
+                        </div>
+
+                        @* Enable this once you have account confirmation enabled for password reset functionality
+                            <p>
+                                @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                            </p>*@
+                }
+            </section>
+        </div>
+        <div class="col-md-3" style="color:white; font-weight:bold;">
+            <section id="socialLoginForm" style="margin-top:13px">
+                @Html.Partial("../Account/_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>
+    </div>
+   </div>
+
+
